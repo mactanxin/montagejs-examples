@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="employee-list-item-view.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "properties": {
+                "element": {"#": "employee-list-item-view"},
+                "itemLinkElement": {"#": "itemLink"}
+            }
+        },
+        "firstName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "firstName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.firstName" }
+            }
+        },
+        "lastName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "lastName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.lastName" }
+            }
+        },
+        "title": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "title"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.title" }
+            }
+        },
+        "employeeImage": {
+            "prototype": "montage/ui/native/image.reel",
+            "properties": {
+                "element": {"#": "employeeImage"}
+            },
+            "bindings": {
+                "src": {"<-": "@owner.employeeImageSrc" }
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <li data-montage-id="employee-list-item-view" class="EmployeeListItemView">
+        <a id="itemLink" href="javascript:void(0);">
+            <img data-montage-id="employeeImage" width="50" height="50" style="float:left;margin-right: 10px;"/>
+            <p class="list-item"><span data-montage-id="firstName"></span> <span data-montage-id="lastName"></span><br /><span data-montage-id="title"></span></p>
+        </a>
+    </li>
+</body>
+</html>

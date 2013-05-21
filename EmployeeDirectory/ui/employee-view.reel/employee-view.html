@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="employee-view.css">
+    <script type="text/montage-serialization">
+    {
+        "owner": {
+            "properties": {
+                "element": {"#": "employee-view"},
+                "managerLinkElement": {"#": "managerLink"},
+                "emailLinkElement": {"#": "emailLink"}
+            }
+        },
+        "firstName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "firstName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.firstName" }
+            }
+        },
+        "lastName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "lastName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.lastName" }
+            }
+        },
+        "drFN": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "drFNtt"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.directReportsName" }
+            }
+        },
+        "title": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "title"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.title" }
+            }
+        },
+        "managerName": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "managerName"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.managerName" }
+            }
+        },
+        "officePhone": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "officePhone"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.officePhone" }
+            }
+        },
+        "cellPhone": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "cellPhone"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.cellPhone" }
+            }
+        },
+        "email": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "email"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.email" }
+            }
+        },
+        "twitterId": {
+            "prototype": "montage/ui/dynamic-text.reel",
+            "properties": {
+                "element": {"#": "twitterId"}
+            },
+            "bindings": {
+                "value": {"<-": "@owner.data.twitterId" }
+            }
+        },
+        "employeeImage": {
+            "prototype": "montage/ui/native/image.reel",
+            "properties": {
+                "element": {"#": "employeeImage"}
+            },
+            "bindings": {
+                "src": {"<-": "@owner.employeeImageSrc" }
+            }
+        },
+        "managerElement": {
+            "prototype": "montage/ui/condition.reel",
+            "properties": {
+                "element": {"#": "managerElement"}
+            },
+            "bindings": {
+                "condition": {"<-": "@owner.hasManager"}
+            }
+        },
+        "hasDirectReportsElement": {
+            "prototype": "montage/ui/condition.reel",
+            "properties": {
+                "element": {"#": "hasDirectReportsElement"}
+            },
+            "bindings": {
+                "condition": {"<-": "@owner.hasDirectReports"}
+            }
+        }, 
+        "directReportsController": {
+            "prototype": "montage/ui/controller/array-controller",
+            "properties": {
+
+            },
+            "bindings": {
+                "content": {"<->": "@owner.directReports"}
+            }
+        },
+        "employeeListItem": {
+            "prototype": "ui/employee-list-item-view.reel",
+            "properties": {
+                "element": {
+                    "#": "employeeListItem"
+                }
+            },
+            "bindings": {
+                "data": {"<-": "@directReportsList.objectAtCurrentIteration"}
+            }
+        },
+        "directReportsList": {
+            "prototype": "montage/ui/repetition.reel",
+            "properties": {
+                "element": {"#": "directReportsList"},
+                "contentController": {"@": "directReportsController"}
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div data-montage-id="employee-view" class="EmployeeView">
+<div id="details" class="span7">
+    <p><img data-montage-id="employeeImage" width="160" height="160"/></p>
+    <h3><span data-montage-id="firstName"></span> <span data-montage-id="lastName"></span></h3>
+    <h4><span data-montage-id="title"></span></h4>
+    <br>
+    <table class="table table-striped">
+        <tr data-montage-id="managerElement">
+            <td>Manager:</td>
+            <td><i class="icon-user"></i> <a id="managerLink" href="javascript:void(0);"><span data-montage-id="managerName"></span></a></td>
+        </tr>
+        <tr>
+            <td>Office Phone:</td>
+            <td><i class="icon-home"></i> <span data-montage-id="officePhone"></span></td>
+        </tr>
+        <tr>
+            <td>Cell Phone:</td>
+            <td><i class="icon-headphones"></i> <span data-montage-id="cellPhone"></span></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><i class="icon-envelope"></i> <a id="emailLink" ><span data-montage-id="email"></span></a></td>
+        </tr>
+        <tr>
+            <td>Twitter:</td>
+            <td><i class="icon-retweet"></i> <a href="javascript:void(0);"><span data-montage-id="twitterId"></span></a></td>
+        </tr>
+    </table>
+
+    <div class="alert alert-warning">
+      <h4 class="alert-heading">Warning</h4>
+      The phone numbers, email addresses, and Twitter handlers are fake.
+    </div>
+</div>
+<div class="span5">
+    <div id="reports" class="well">
+        <h3 class="modal-header">Direct Reports</h3>
+        <ul data-montage-id="directReportsList" class="nav nav-list">
+            <li data-montage-id="employeeListItem"></li>
+        </ul>
+        <div data-montage-id="hasDirectReportsElement"><div class="alert alert-info">
+            <h4 class="alert-heading">Info</h4>
+            <span data-montage-id="drFNtt"></span> has no direct reports
+        </div>
+        </div>
+    </div>
+</div>        
+    </div>
+</body>
+</html>
